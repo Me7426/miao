@@ -25,19 +25,17 @@
       a[href^="tel:"]{color: yellow;}
       a[href$=".pdf"]{font-size: 30px;}
 
-      div.a>ul>li:nth-child(n+4){color: red;}
-      div.a>ul>li:nth-child(n+8){color: black;}
-
+      div.a>ul>li:nth-child(n+4):nth-last-child(n+9){color: red;}
 
       div.b>ul>li:nth-child(-n+25){color: red;}
       div.b>ul>li:nth-child(n+35):nth-last-child(n+51){color: blue;}
       div.b>ul>li:nth-child(n+65){color: green;}
 
-      div.prime>ul>li:nth-child(1){color: red;}
-      div.prime>ul>li:nth-child(2n):nth-child(n+3){color: red;}
-      div.prime>ul>li:nth-child(3n):nth-child(n+4){color: red;}
-      div.prime>ul>li:nth-child(5n):nth-child(n+6){color: red;}
-      div.prime>ul>li:nth-child(7n):nth-child(n+8){color: red;}
+      div.prime>ul>li:nth-child(1){color: yellow;}
+      div.prime>ul>li:nth-child(2n):nth-child(n+3){color: yellow;}
+      div.prime>ul>li:nth-child(3n):nth-child(n+4){color: yellow;}
+      div.prime>ul>li:nth-child(5n):nth-child(n+6){color: yellow;}
+      div.prime>ul>li:nth-child(7n):nth-child(n+8){color: yellow;}
     </style>
   </head>
 
