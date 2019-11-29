@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css-sprite</title>
+    <style>
+        /* ========================= */
+
+        html * {
+            font-size: 0;
+            border: 1px solid;
+            margin: 1px;
+        }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+        .phone {
+            box-sizing: border-box;
+            width: 50px;
+            height: 50px;
+            background-image: url(https://www.google.com/images/nav_logo242_hr.webp
+);
+            background-size: 530px;
+            background-position: -0.7% 22.7%;
+        }
+
+        .person {
+            box-sizing: border-box;
+            width: 50px;
+            height: 50px;
+            background-image: url(https://www.google.com/images/nav_logo242_hr.webp
+);
+            background-size: 530px;
+            background-position: 9.5% 83%;
+        }
+
+        .google {
+            box-sizing: border-box;
+            width: 154px;
+            height: 50px;
+            background-image: url(https://www.google.com/images/nav_logo242_hr.webp
+);
+            background-size: 200px;
+            background-position: 47.5% -0.5%;
+        }
+
+        .location {
+            box-sizing: border-box;
+            width: 50px;
+            height: 50px;
+            background-image: url(https://www.google.com/images/nav_logo242_hr.webp
+);
+            background-size: 450px;
+            background-position: 100.5% 53.8%;
+        }
+
+        /* ========================= */
+    </style>
+</head>
+
+<body>
+    <div class="google"></div>
+    <div class="person inline-block"></div>
+    <div class="phone inline-block"></div>
+    <div class="location inline-block"></div>
+</body>
+
+</html>
