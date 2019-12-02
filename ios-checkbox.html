@@ -8,39 +8,52 @@
     <style>
         input {display: none;}
 
-        label {
+        input + label {
             display:inline-block;
             height: 100px;
             width: 200px;
-            border: 1px solid grey;
+            border: 2px solid grey;
             border-radius: 50px;
+            box-shadow: inset 0px 0px 0px 0px #30f34d;
+            transition: 0.5s;
         }
 
         input + label::before {
             content: '';
             display: block;
+            background-color: #fff;
             box-sizing: border-box;
-            background-color: green;
-            width: 100px;
-            height: 100px;
-            border: 2px solid grey;
+            width: 94px;
+            height: 94px;
             border-radius: 50px;
+            xbox-shadow: 0 4px 6px 0 rgba(32, 33, 36, 0.7);
+            box-shadow: 0px 5px 14px 2px rgba(32, 33, 36, 0.7);
             position: relative;
-            left: 1px;
+            left: 4px;
+            top: 3px;
+            transition: 0.5s;
+        }
+        
+        input:checked + label {
+            box-shadow: inset 57px 0px 0px 100px #30f34d;
+            transition: 0.5s;
+
         }
         
         input:checked + label::before {
             content: '';
             display: block;
+            background-color: #fff;
             box-sizing: border-box;
-            background-color: green;
-            width: 100px;
-            height: 100px;
-            border: 2px solid grey;
+            width: 94px;
+            height: 94px;
             border-radius: 50px;
             position: relative;
-            left: 99px;
+            left: 100px;
+            top: 3px;
+            transition: 0.5s;
         }
+
     </style>
     
     <title>ios checkbox</title>
