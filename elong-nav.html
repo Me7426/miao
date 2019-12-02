@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+        body {margin: 0px;}
+
+        ul {
+            color: white;
+            background-color: #2064c8;
+            font-size: 0px;
+            margin: 30px 0px;
+        }
+
+        li {
+            display: inline-block;
+            box-sizing: border-box;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px;
+            list-style: none;
+            display: inline-block;
+            border-right: 1px solid #3774ce;
+            position: relative;
+
+        }
+
+        li[flag]::after {
+            content: attr(flag);
+            font-size: 10px;
+            width: 37px;
+            height: 16px;
+            background-color: #ff8e00;
+            position:absolute;
+            bottom:35px;
+        }
+        li[flag]::before{
+            content:'';
+            display: block;
+            border:3px solid;
+            border-color: #ff8e00 transparent transparent #ff8e00;
+            position:absolute;
+            right: 3px;
+            bottom: 29px;
+        }
+        
+    </style>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li>首页</li>
+            <li flag='大床房'>国内酒店</li>
+            <li flag='低价促'>海外酒店</li>
+            <li flag='新升级'>国内•国际机票</li>
+            <li>火车票</li>
+            <li>汽车票</li>
+            <li>商旅</li>
+        </ul>
+    </nav>
+</body>
+
+</html>
