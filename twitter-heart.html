@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+       
+        input {position: relative;width: 0;}
+        div {margin:20px}
+
+        input::after {
+            content: '288';
+            color: rgb(101, 119, 134);;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;;
+            font-size:20px;
+            margin-left: 10px;
+            position:absolute;
+            left: 12px;
+            top: -7px;
+        }
+
+        input:checked::after {
+            content:'289';
+        }
+        
+        input::before {
+            content: '';
+            display: block;
+            width: 72px;
+            height: 53px;
+            background-image: url(https://miro.medium.com/max/2900/1*MTZW1G1mE7LSX1CnhTYeHA.png);
+            background-repeat: no-repeat;
+            background-size: 2175px 75px;
+            background-position: -7px -12px;
+            position: absolute;
+            left: -30px;
+            top:-21px;
+            transition: none;
+        }
+
+        input:checked::before {
+            background-position:-2107px -12px;
+            transition: 1s steps(28);
+        }
+
+    </style>
+
+    <title>twitter heart</title>
+</head>
+
+<body>
+    <div>
+            <input type="checkbox">
+
+    </div>
+</body>
+
+</html>
