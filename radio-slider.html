@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>radio-slider</title>
+
+    <style>
+
+        div {
+            width: 200px;
+            border: 1px solid;
+            margin: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        input {display:none;}
+
+        section {
+            font-size:0px;
+            width: 800px;
+            height: 200px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        label {
+            font-size: 40px;
+            xbackground-color: yellow;
+            position: absolute;
+            top:10px;
+            left: 74px;
+            z-index:-10;
+            user-select: none;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        input:checked + label {
+            z-index: 1;
+        }
+
+        input#d:checked ~ section {
+            left: 0px;           
+        }
+        
+        input#c:checked ~ section {
+            left: -200px;           
+        }
+        
+        input#b:checked ~ section {
+            left: -400px;           
+        }
+        
+         input#a:checked ~ section {
+            left: -600px;           
+        }
+    </style>
+    
+</head>
+<body>
+    <div>
+    <input type="radio" name="type" id="a">
+    <label for="d">←</label>
+    <input type="radio" name="type" id="b">
+    <label for="a">←</label>
+    <input type="radio" name="type" id="c">
+    <label for="b">←</label>
+    <input type="radio" name="type" checked id="d">
+    <label for="c">←</label>
+
+    <section>
+        <img src="https://via.placeholder.com/200?text=imageA" alt="">
+        <img src="https://via.placeholder.com/200?text=imageB" alt="">
+        <img src="https://via.placeholder.com/200?text=imageC" alt="">
+        <img src="https://via.placeholder.com/200?text=imageD" alt="">
+    </section>
+    </div>
+</body>
+</html>
