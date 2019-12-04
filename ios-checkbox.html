@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <style>
-        input {
+        input.ios {
             position:relative;
             top: 50px;
             left: 6px;
             }
 
-        input::before {
+        input.ios::before {
             content:'';
             display:inline-block;
             height: 100px;
@@ -26,7 +26,7 @@
             left: -6px;
         }
 
-        input::after {
+        input.ios::after {
             content: '';
             display: block;
             background-color: #fff;
@@ -41,17 +41,53 @@
             transition:0.3s;
         }
         
-        input:checked::before{
+        input.ios:checked::before{
             content:'';
             box-shadow: inset 57px 0px 0px 110px #30f34d;
             transition: 0.3s;
 
         }
         
-        input:checked::after {
+        input.ios:checked::after {
             content: '';
             left: 83px;
             top: -46px;
+        }
+
+        .wrap>input {display: none;}
+
+        .wrap>label {
+            display: block;
+            margin-top: 20px;
+            user-select: none;
+        }
+
+        .wrap>label::before {
+            content: '';
+            display: inline-block;
+            width: 0px;
+            height: 0px;
+            padding:10px;
+            margin-bottom: -7px;
+            margin-right: 5px;
+            border: 2px solid;
+            border-radius: 20px;
+            background: content-box #03c15e;
+            box-shadow:0px 0px 0px 0px #BDDECD;
+            transition: .3s ;
+
+        }
+        
+        .wrap>input:checked + label::before {
+            box-shadow: 0px 0px 0px 10px transparent;
+            width: 14px;
+            height: 14px;
+            padding: 3px;
+            color:#03c15e;
+        }
+
+        .wrap>label:active::before {
+            box-shadow: 0px 0px 0px 10px #BDDECD;
         }
 
     </style>
@@ -59,6 +95,15 @@
     <title>ios checkbox</title>
 </head>
 <body>
-    <input type="checkbox">
+    <input class='ios' type="checkbox">
+
+    <div class="wrap" style="margin: 118px 8px;">
+            <input type="radio" name="radio" id="r1">
+            <label for="r1">Radio Button</label>
+            <input type="radio" name="radio" id="r2">
+            <label for="r2">Radio Button</label>
+            <input type="radio" name="radio" id="r3">
+            <label for="r3">Radio Button</label>
+    </div>
 </body>
 </html>
