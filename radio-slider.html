@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,6 @@
     <title>radio-slider</title>
 
     <style>
-
         div {
             width: 200px;
             border: 1px solid;
@@ -15,11 +15,13 @@
             position: relative;
             overflow: hidden;
         }
-        
-        input {display:none;}
+
+        input {
+            display: none;
+        }
 
         section {
-            font-size:0px;
+            font-size: 0px;
             width: 800px;
             height: 200px;
             position: relative;
@@ -28,12 +30,19 @@
 
         label {
             font-size: 40px;
-            xbackground-color: yellow;
             position: absolute;
-            top:10px;
-            left: 74px;
-            z-index:-10;
+            z-index: -10;
             user-select: none;
+        }
+
+        label.left {
+            top: 10px;
+            left: 24px;
+        }
+
+        label.right {
+            top: 10px;
+            left: 130px;
         }
 
         img {
@@ -41,45 +50,52 @@
             height: 200px;
         }
 
-        input:checked + label {
+        input:checked+label,
+        input:checked+label+label {
             z-index: 1;
         }
 
-        input#d:checked ~ section {
-            left: 0px;           
+        input#d:checked~section {
+            left: 0px;
         }
-        
-        input#c:checked ~ section {
-            left: -200px;           
+
+        input#c:checked~section {
+            left: -200px;
         }
-        
-        input#b:checked ~ section {
-            left: -400px;           
+
+        input#b:checked~section {
+            left: -400px;
         }
-        
-         input#a:checked ~ section {
-            left: -600px;           
+
+        input#a:checked~section {
+            left: -600px;
         }
     </style>
-    
+
 </head>
+
 <body>
     <div>
-    <input type="radio" name="type" id="a">
-    <label for="d">←</label>
-    <input type="radio" name="type" id="b">
-    <label for="a">←</label>
-    <input type="radio" name="type" id="c">
-    <label for="b">←</label>
-    <input type="radio" name="type" checked id="d">
-    <label for="c">←</label>
+        <input type="radio" name="type" id="a">
+        <label for="d" class='left'>←</label>
+        <label for="b" class="right">→</label>
+        <input type="radio" name="type" id="b">
+        <label for="a" class='left'>←</label>
+        <label for="c" class="right">→</label>
+        <input type="radio" name="type" id="c">
+        <label for="b" class='left'>←</label>
+        <label for="d" class="right">→</label>
+        <input type="radio" name="type" checked id="d">
+        <label for="c" class='left'>←</label>
+        <label for="a" class="right">→</label>
 
-    <section>
-        <img src="https://via.placeholder.com/200?text=imageA" alt="">
-        <img src="https://via.placeholder.com/200?text=imageB" alt="">
-        <img src="https://via.placeholder.com/200?text=imageC" alt="">
-        <img src="https://via.placeholder.com/200?text=imageD" alt="">
-    </section>
+        <section>
+            <img src="https://via.placeholder.com/200?text=imageA" alt="">
+            <img src="https://via.placeholder.com/200?text=imageB" alt="">
+            <img src="https://via.placeholder.com/200?text=imageC" alt="">
+            <img src="https://via.placeholder.com/200?text=imageD" alt="">
+        </section>
     </div>
 </body>
+
 </html>
