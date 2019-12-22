@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+        body {transform-style: preserve-3d;}
+
+        .outside {
+            left: 5em;
+            top: 5em;
+            font-size: 14px;
+            
+        }
+        
+        .inside {
+            left: 15em;
+            top: 15em;
+            font-size: 7px;
+            animation-direction: reverse;
+        }
+
+        .outside > div {background-image: linear-gradient(to right bottom, #0000ff80, #00ff0080);}
+        .inside > div {background-image: linear-gradient(to left top, #0000ff80, #00ff0080);}
+
+        .wrap {
+            width: 10em;
+            height: 10em;
+            position: absolute;
+            transform-style: preserve-3d;
+            animation-duration: 5s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            animation-name: run;
+        }
+
+        .wrap>div {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+
+        .side1 {transform: rotateY(90deg) translateZ(-5em);}
+        .side2 {transform: rotateY(-90deg) translateZ(-5em);}
+        .side3 {transform: rotateX(90deg) translateZ(-5em);}
+        .side4 {transform: rotateX(-90deg) translateZ(-5em);}
+        .side5 {transform: translateZ(5em);}
+        .side6 {transform: translateZ(-5em);}
+
+
+        @keyframes run {
+            from {transform: rotateX(-360deg) rotateY(360deg) rotateZ(-180deg);}
+            50% {transform: rotateX(0deg) rotateY(0deg) rotateZ(180deg);}
+            to {transform: rotateX(0deg) rotateY(0deg) rotateZ(180deg);}
+        }
+
+    </style>
+
+    <title>Cube</title>
+</head>
+
+<body>
+    <div class="outside wrap">
+        <div class="side1"></div>
+        <div class="side2"></div>
+        <div class="side3"></div>
+        <div class="side4"></div>
+        <div class="side5"></div>
+        <div class="side6"></div>
+    </div>
+
+    <div class="inside wrap">
+        <div class="side1"></div>
+        <div class="side2"></div>
+        <div class="side3"></div>
+        <div class="side4"></div>
+        <div class="side5"></div>
+        <div class="side6"></div>
+    </div>
+</body>
+
+</html>

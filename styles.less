@@ -1,0 +1,272 @@
+// * {background-color: #0002;}
+
+body {
+    margin     : 0px;
+    font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft Yahei', 'WenQuanYi Micro Hei', Arial, Verdana, sans-serifbody;
+}
+
+hr {
+    border-top: 0px;
+}
+
+ul {
+    padding   : 0px;
+    margin    : 0px;
+    list-style: none;
+}
+
+a {
+    color          : inherit;
+    text-decoration: none;
+}
+
+header {
+    background-image: url(https://mobike.com/cn/assets/themes/moby/img/landing/hero-bg-4.jpg);
+    height          : 780px;
+    position        : relative;
+
+    nav {
+        box-sizing: border-box;
+        height    : 80px;
+        width     : 1080px;
+        margin    : 0 auto;
+        padding   : 18.8px 20px;
+        color     : #fff;
+        position  : relative;
+
+        a.logo {
+            color         : #fff;
+            vertical-align: middle;
+        }
+
+        ul {
+            display : inline-block;
+            position: absolute;
+            right   : 20px;
+
+            li {
+                display    : inline-block;
+                margin-left: 50px;
+            }
+        }
+
+    }
+
+    .hero {
+        box-sizing: border-box;
+        color          : #FFF;
+        font-weight    : 700;
+        width          : 1080px;
+        padding-left: 30px;
+        margin         : 200px auto;
+
+        &>span {
+            font-size    : 44.8px;
+            display      : block;
+            margin-bottom: 20px;
+        }
+
+        &>a {
+            display      : block;
+            font-size    : 22px;
+            background   : #0006;
+            box-shadow   : rgba(102, 77, 79, 0.6) 0px 6px 30px 0px;
+            width        : 295px;
+            height       : 59px;
+            line-height  : 59px;
+            text-align   : center;
+            border-radius: 5px;
+        }
+
+        &>div {
+            position        : absolute;
+            bottom          : 0px;
+            left            : 0px;
+            right           : 0px;
+            background-color: #0006;
+            width           : auto;
+            padding         : 10px 30px;
+            font-weight     : normal;
+
+            a {
+                display: block;
+                width: 1080px;
+                margin: 0 auto;
+
+                &::before {
+                    content         : 'NEWS';
+                    font-size       : 6px;
+                    border-radius   : 5px;
+                    background-color: #ff2e2e;
+                    margin-right    : 5px;
+                    padding         : 3px 7px;
+                }
+            }
+        }
+    }
+}
+
+
+main {
+    overflow: hidden;
+
+    ul.imgs {
+        width          : auto;
+        display        : flex;
+        flex-flow      : row wrap;
+        justify-content: space-between;
+        margin         : 0 -1px;
+
+        li {
+            box-sizing       : border-box;
+            color            : #fff;
+            font-size        : 26px;
+            display          : inline-block;
+            text-align       : center;
+            height           : 260px;
+            background-size  : cover;
+            background-repeat: no-repeat;
+            flex-grow        : 1;
+            flex-basis       : 25%;
+            border           : 1px solid #FFF;
+            
+            a {
+                display: block;
+                width: 100%;
+                height: 100%;
+                line-height      : 100px;
+            }
+
+            &:nth-child(1) {
+                background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-01.jpg);
+            }
+            
+            &:nth-child(2) {
+                background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-02.jpg);
+            }
+
+            &:nth-child(3) {
+                background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-03.jpg);
+            }
+
+            &:nth-child(4) {
+                background-image: url(https://mobike.com/cn/assets/themes/moby/img/promo-04.jpg);
+            }
+        }
+    }
+
+    ul.tips {
+        height         : 50px;
+        padding        : 45px 30px;
+        display        : flex;
+        flex-flow      : row wrap;
+        justify-content: space-between;
+        max-width      : 1080px;
+        margin         : 0 auto;
+
+        li {
+            line-height: 50px;
+
+            img {
+                margin-right  : 10px;
+                vertical-align: top;
+            }
+
+            span {
+                display          : inline-block;
+                line-height      : 25px;
+            }
+
+        }
+    }
+}
+
+
+footer {
+    max-width: 1080px;
+    margin   : 0 auto;
+
+    &>ul {
+        margin         : 30px;
+        display        : flex;
+        justify-content: space-between;
+
+        li {
+            flex-grow: 1;
+
+            &:nth-child(1) {
+                flex-grow: 5;
+
+                a.logo {
+                    display          : block;
+                    background-image : url(https://mobike.com/cn/assets/themes/moby/img/logo-text.svg);
+                    background-repeat: no-repeat;
+                    background-size  : contain;
+                    height           : 36px;
+                    width            : 160px;
+                }
+            }
+
+            li {
+                margin-top: 10px;
+
+                &:nth-child(1) {
+                    font-weight: bold;
+                    font-size  : 1.1em;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1080px) {
+    header {
+        height: 625px;
+
+        nav {
+            width: 70%;
+        }
+
+        .hero {
+            width: 70%;
+
+            &>div>a {
+                width: 70%;
+            }
+        }
+    }
+
+    main {
+
+        ul.imgs li {
+            flex-basis: 50%;
+        }
+    }
+}
+
+
+@media (max-width:778px) {
+    header {
+        nav {
+            width : 100%;
+            margin: 0;
+        }
+
+        .hero {
+            width : 100%;
+            margin: 200px 0;
+        }
+    }
+
+    main {
+
+        ul.imgs li {
+            flex-basis: 100%;
+        }
+
+        ul.tips {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}
