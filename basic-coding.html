@@ -69,7 +69,7 @@ console.log(Math.floor(n1 / n2) + ' ' + n1 % n2)
 console.log((+prompt() / +prompt()).toFixed(9))
 </script>
 
-<script type='' id="ch0103/06">
+<script type='X' id="ch0103/06">
 var n1 = +prompt();
 var n2 = +prompt();
 console.log((n2 / n1 * 100).toFixed(3) + '%')
@@ -168,24 +168,41 @@ console.log(+prompt() * +prompt())
 console.log(Math.pow(2, +prompt()))
 </script>
 
-<script type='X' id="ch0104/21">
-var n = +prompt();
-var x = +prompt();
-var y = +prompt();
-console.log(n - Math.ceil(y / x))
-</script>
-
 <script type='X' id="ch0104/01">
 var n = +prompt();
 console.log(n == 0 ? 'zero' : (n > 0 ? 'positive' : 'negative'))
 </script>
 
-<script type='X' id="ch0104/03">
-console.log(+prompt() % 2 == 0 ? 'even' : 'odd')
-</script>
-
 <script type='X' id="ch0104/02">
 console.log(Math.abs(+prompt()))
+</script>
+
+<script type='X' id="ch0104/03">
+    console.log(+prompt() % 2 == 0 ? 'even' : 'odd')
+</script>
+    
+<script type='X' id="ch0104/04">
+console.log(+prompt().charCodeAt() % 2 ? 'YES' : 'NO')
+</script>
+
+<script id="ch0104/05">
+var n1 = +prompt();
+var n2 = +prompt();
+console.log(n1 == n2 ? '=' : (n1 > n2 ? '>' : '<'))
+</script>
+
+<script id="ch0104/06">
+var num = +prompt();
+console.log(num >= 10 && num <= 99 ? '1' : '0')
+</script>
+
+<script id="ch0104/07">
+console.log(+prompt() >= 10 || +prompt() >=20 ? '1' : '0');
+</script>
+
+<script id="ch0104/08">
+    var num = +prompt();
+    cosole.log(num % 3 || num % 5 ? 'NO' : 'YES');
 </script>
 
 <script type='X' id="ch0104/13">
@@ -195,6 +212,13 @@ console.log(
 )
 </script>
 
+<script type='X' id="ch0104/21">
+    var n = +prompt();
+    var x = +prompt();
+    var y = +prompt();
+    console.log(n - Math.ceil(y / x))
+    </script>
+    
 <script type='X' id="ch0105/15">
 var R = +prompt() / 100;
 var M = +prompt();
