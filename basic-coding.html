@@ -23,7 +23,6 @@ console.log(`                ********
 ##########################################    ############                  ##############    ############`)
 </script>
 
-
 <script type='X' id="ch0101/09">
 var a = prompt();
 console.log(
@@ -48,11 +47,60 @@ console.log(
 )
 </script>
 
-<script id="ch0103/18">
+<script type='X' id="ch0103/18">
 var a = +prompt();
 var b = +prompt();
 var c = +prompt();
 console.log((b - a) * (c - 1) + a)
 </script>
 
+<script type='X' id="ch0103/16">
+var x1 = +prompt();
+var y1 = +prompt();
+var x2 = +prompt();
+var y2 = +prompt();
+var time1 = Math.abs(x1 - x2) * Math.abs(x1 - x2);
+var time1 = Math.abs(y1 - y2) * Math.abs(y1 - y2);
+console.log(Math.sqrt(time1 + time2))
+</script>
+
+<script type='X' id="ch0103/13">
+var num = prompt();
+console.log(num[2] + num[1] + num[0])
+</script>
+
+<script type='X' id="ch0103/19">
+console.log(+prompt() * +prompt())
+</script>
+
+<script type='X' id="ch0103/20">
+console.log(Math.pow(2, +prompt()))
+</script>
+
+<script type='X' id="ch0104/21">
+var n = +prompt();
+var x = +prompt();
+var y = +prompt();
+console.log(n - Math.ceil(y / x))
+</script>
+
+<script type='X' id="ch0104/01">
+var n = +prompt();
+console.log(n == 0 ? 'zero' : (n > 0 ? 'positive' : 'negative'))
+</script>
+
+<script type='X' id="ch0104/03">
+console.log(+prompt() % 2 == 0 ? 'even' : 'odd')
+</script>
+
+<script type='X' id="ch0104/02">
+console.log(Math.abs(+prompt()))
+</script>
+
+<script type='X' id="ch0104/13">
+var n = +prompt();
+console.log(
+    n < 5 ? -n + 2.5 : (n < 10 ? 2 - 1.5 * (n - 3) * (n - 3) : n / 2 - 1.5)
+)
+</script>
 
