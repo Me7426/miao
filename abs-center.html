@@ -7,17 +7,69 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <style>
-        /* 基础样式 */
-        * {margin: 0;padding: 0;}
-        html,body {height: 100%;}
-        body {width: 100%;height: 100%;}
-        .wrap {border: 1px solid;width: 100px;height: 100px;}
+        * {
+            box-sizing: border-box;
+            background-color: #0002;
+        }
 
-        .f {
+        body {
+            margin: 50px;
+            position: relative;
+        }
+
+        p {margin: 0;}
+
+        div {
+            margin: 50px;
+            border: 1px solid;
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+      
+        .a > p {
             text-align: center;
             position: relative;
+            width: min-content;
+            height: min-content;
+            left: 50%;
             top: 50%;
-            transform: translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            /* trasform的百分比值是以自身宽高为基准进行计算的 */
+        }
+
+        .b > p {
+            position: absolute;
+            width: min-content;
+            height: min-content;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .c > p {
+            vertical-align: middle;
+            text-align: center;
+            height: 100%;
+        }
+        .c > p::before {
+            content:'';
+            line-height: 98px;
+        }
+
+        .d {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .e {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 
@@ -25,11 +77,20 @@
 </head>
 
 <body>
-    <div class="wrap">
-        <div class="f">
-            <p>Center</p>
-            
-     </div>
+    <div class="a">
+        <p>Center</p>
+    </div>
+    <div class="b">
+        <p>Center</p>
+    </div>
+    <div class="c">
+        <p>Center</p>
+    </div>
+    <div class="d">
+        <p>Center</p>
+    </div>
+    <div class="e">
+        <p>Center</p>
     </div>
 </body>
 
