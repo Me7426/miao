@@ -60,8 +60,8 @@ var y1 = +prompt();
 var x2 = +prompt();
 var y2 = +prompt();
 var time1 = Math.abs(x1 - x2) * Math.abs(x1 - x2);
-var time1 = Math.abs(y1 - y2) * Math.abs(y1 - y2);
-console.log(Math.sqrt(time1 + time2))
+var time2 = Math.abs(y1 - y2) * Math.abs(y1 - y2);
+console.log((Math.sqrt(time1 + time2)).toFixed(3));
 </script>
 
 <script type='X' id="ch0103/13">
@@ -100,7 +100,7 @@ console.log(Math.abs(+prompt()))
 <script type='X' id="ch0104/13">
 var n = +prompt();
 console.log(
-    n < 5 ? -n + 2.5 : (n < 10 ? 2 - 1.5 * (n - 3) * (n - 3) : n / 2 - 1.5)
+    (n < 5 ? -n + 2.5 : (n < 10 ? 2 - 1.5 * (n - 3) * (n - 3) : n / 2 - 1.5)).toFixed(3)
 )
 </script>
 
