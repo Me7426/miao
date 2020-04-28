@@ -1,15 +1,28 @@
 var me7426 = {
-	isNull: function (val) {
-		return val === null
-	},
+	isNull,
+	chunk,
+	compact,
+}
 
-	chunk: function (ary, size) {
-		let result = [];
+function isNull (val) {
+	return val === null
+}
 
-		for (let i = 0; i < ary.length; i += size) {
-			result.push(ary.slice(i, i + size))
-		}
+function chunk (ary, size) {
+	let result = [];
 
-		return result;
-	},
+	for (let i = 0; i < ary.length; i += size) {
+		result.push(ary.slice(i, i + size))
+	}
+
+	return result;
+}
+
+function compact(ary) {
+	let result = [];
+
+	for (let i = 0; i < ary.length; i++) {
+		if (ary[i])
+		result.push(ary[i])
+	}
 }
