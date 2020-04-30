@@ -6,6 +6,32 @@ var me7426 = {
 	concat,
 	drop,
 	fill,
+	head,
+	flatten,
+	indexOf,
+	initial,
+}
+
+function initial (ary) {
+	return ary.slice(0, -1)
+}
+
+function indexOf(ary, val, from = 0) {
+	if (!Array.isArray(ary)) {
+		return -1	
+	} else if (Number.isNaN(val)) {
+		return ary.findIndex(Number.isNaN)
+	} else {
+		return ary.indexOf(val, from)
+	}
+}
+
+function flatten (ary) {
+	return [].concat(...ary)
+}
+
+function head (ary) {
+	return ary[0]
 }
 
 function fill (ary, val, start = 0, end = ary.length) {
