@@ -17,9 +17,65 @@ var me7426 = {
 	nth,
 	pull,
 	pullAll,
+	pullAt,
+	remove,
+	reverse,
+	slice,
 }
 
-function pullAll(ary,vals) {
+function slice(ary, start = 0, end) {
+	let len = ary == null ? 0 : ary.length;
+	if(!len) {
+		return []
+	}
+
+	if(start < 0) {
+		start = -start > len ? 0 : (len + start);
+	}
+	if(end < 0) {
+		end = -end > len ? 0 : (len + end)
+	} else {
+		end = end < len ? end : (len - 1)
+	}
+
+	len = start > end ? 0 : Math.floor((end - start + 1));
+	let result = [];
+	let i = -1;
+	while(++i < len) {
+		result[i] = ary[i + start]
+	}
+
+	return result
+}
+
+function reverse(ary) {
+	return ary.reverse()
+}
+
+function remove(ary, fn=e=>e) {
+	if (Array.isArray(ary)) {
+		let result = ary.filter(fn);
+		pull(ary, ...result);
+		return result
+	} else {
+		return undefined
+	}
+}
+
+function pullAt(ary, idx) {
+	if (Array.isArray(ary)) {
+		let result = [];
+		let offset = 0;
+		idx.forEach((e) => {
+			result.push(...ary.splice(e - offset++, 1))
+		})
+		return result
+	} else { 
+		return undefined
+	}
+}
+
+function pullAll(ary, vals) {
 	return pull(ary, ...vals)
 }
 
@@ -28,7 +84,7 @@ function pull(ary, ...val) {
 		for (let i = 0; i < ary.length; i++) {
 			let j = val.indexOf(ary[i])
 			if (j > -1)
-			ary.splice(i--, 1)
+				ary.splice(i--, 1)
 		}
 		return ary
 	} else {
