@@ -21,6 +21,70 @@ var me7426 = {
 	remove,
 	reverse,
 	slice,
+	sortedIndex,
+	tail,
+	take,
+	takeRight,
+	union,
+	uniq,
+	unzip,
+}
+
+function unzip(ary) {
+// let result = Array.apply(null, Array(ary[0].length)).map(() => []);
+	let result = [...Array(ary[0].length)].map(() => [])
+
+	ary.forEach((e) => {
+		e.forEach((ee, i) => {
+			result[i].push(ee)
+		})
+	})
+
+	return result
+}
+
+function uniq(ary) {
+	return union(ary)
+}
+
+function union(...ary) {
+	return [...new Set([].concat(...ary))]
+}
+
+function takeRight(ary, n = 1) {
+	let i = ary.length - n > -1 ? ary.length - n : 0;
+	return ary.slice(i)
+}
+
+function take(ary, n = 1) {
+	return ary.slice(0, n)
+}
+
+function tail(ary) {
+	return ary.slice(1)
+}
+
+function sortedIndex(ary, val) {
+	let len = ary == null ? 0 : ary.length;
+	if(len == 0 || ary[0] > val) {
+		return 0
+	} else if(ary[len - 1] < val) {
+		return len - 1
+	}
+
+	let l = 0;
+	let m = (len - 1) / 2 | 0;
+	let r = len - 1;
+	do {
+		if(ary[m] < val) {
+			l = m;
+		} else {
+			r = m;
+		}
+		m = (r - l) / 2 + l | 0
+	} while (r - l > 1);
+
+	return m + 1
 }
 
 function slice(ary, start = 0, end) {
