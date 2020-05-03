@@ -28,6 +28,69 @@ var me7426 = {
 	union,
 	uniq,
 	unzip,
+	without,
+	xor,
+	zip,
+	zipObject,
+	includes,
+}
+
+function includes(col, val, from = 0) {
+	from = from < 0 ? col.length + from : from;
+	if(typeof col == 'string') {
+		return col.includes(val, from)
+	} else {
+		vals = Object.values(col)
+		if(vals.indexOf(val, from) > -1) {
+			return true
+		}
+	}
+
+	return false
+	
+}
+
+function zipObject(keys, vals) {
+	let result = {};
+	keys.forEach((e, i) => {
+		result[e] = vals[i]
+	})
+	return result
+}
+
+function zip(...arys) {
+	let result = []
+	arys.forEach((e, i) => {
+		e.forEach((ee, ii) => {
+			result[ii] = result[ii] || Array(arys.length);
+			result[ii][i] = ee
+		})
+	})
+
+	return result
+}
+
+function xor(ary, ...arys) {
+	let map = new Map();
+	[].concat(ary, ...arys).forEach((e) => {
+		let k = map.get(e);
+		if(k == undefined) {
+			map.set(e, 0)
+		} else {
+			map.set(e, k + 1)
+		}
+	})
+
+	let result = [];
+	map.forEach((val, key) => {
+		val || result.push(key)
+	})
+
+	return result
+}
+
+function without(ary, ...val) {
+	return difference(ary,val)
 }
 
 function unzip(ary) {
