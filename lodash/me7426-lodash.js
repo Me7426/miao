@@ -33,21 +33,186 @@ var me7426 = {
 	zip,
 	zipObject,
 	includes,
+	sample,
+	sampleSize,
+	shuffle,
+	size,
+	eq,
+	gt,
+	gte,
+	lt,
+	lte,
+	add,
+	ceil,
+	divide,
+	floor,
+	max,
+	mean,
+	min,
+	multiply,
+	round,
+	substract,
+	sum,
+	at,
+}
+
+function at(obj, ...path) {
+	let result = [];
+	[].concat(...path).forEach(e => result.push(eval('obj.' + e)))
+	
+	return result
+}
+
+// function at(obj, ...path) {
+// 	let result = [];
+
+// 	Object.keys(obj).forEach(function (e) {
+// 		var [e] = obj[e]
+// 	},this);	
+
+// 	[].concat(...path).forEach(function (e) {
+// 		 result.push(eval(e))
+// 		}, this)
+// 	return result
+// }
+
+function sum(ary) {
+	return ary.reduce((p, e) => p + e)
+}
+
+function substract(val, other) {
+	return val - other
+}
+
+function round(val, n = 0) {
+	if (n > 0) {
+		return Math.round(val * 10 ** n) / 10 ** n;
+	} else if (n < 0) {
+		return Math.round(val / 10 ** (-n)) * 10 ** (-n);
+	} else {
+		return Math.round(val)
+	}
+}
+
+function multiply(val, other) {
+	return val * other
+}
+
+function min(ary) {
+	if (!ary.length) {
+		return undefined
+	}
+	return ary.reduce((p, e) => p > e ? e : p)
+}
+
+function mean(ary) {
+	return ary.reduce((p, e) => p + e) / ary.length
+}
+
+function max(ary) {
+	if (!ary.length) {
+		return undefined
+	}
+	return ary.reduce((p, e) => p > e ? p : e)
+}
+
+function floor(val, n = 0) {
+	if (n > 0) {
+		return Math.floor(val * 10 ** n) / 10 ** n;
+	} else if (n < 0) {
+		return Math.floor(val / 10 ** (-n)) * 10 ** (-n);
+	} else {
+		return Math.floor(val)
+	}
+}
+
+function divide(val, other) {
+	return val / other
+}
+
+function ceil(val, n = 0) {
+	if (n > 0) {
+		return Math.ceil(val * 10 ** n) / 10 ** n;
+	} else if (n < 0) {
+		return Math.ceil(val / 10 ** (-n)) * 10 ** (-n);
+	} else {
+		return Math.ceil(val)
+	}
+}
+
+function add(val, other) {
+	return val + other
+}
+
+function lte(val, other) {
+	return eq(val, other) || lt(val, other)
+}
+
+function lt(val, other) {
+	return val < other
+}
+
+function gte(val, other) {
+	return eq(val, other) || gt(val, other)
+}
+
+function gt(val, other) {
+	return val > other
+}
+
+function eq(val, other) {
+	if (Number.isNaN(val) && Number.isNaN(other)) {
+		return true
+	} else {
+		return val === other
+	}
+}
+
+function size(col) {
+	return Object.keys(col).length
+}
+
+function shuffle(col) {
+	let result = Object.values(col);
+
+	for (let i = col.length - 1; i >= 0; i--) {
+		let r = Math.random() * (i + 1) | 0;
+		[result[r], result[i]] = [result[i], result[r]];
+	}
+
+	return result
+}
+
+function sampleSize(col, n = 1) {
+	n = n > col.length ? col.length : n;
+	let keys = Object.keys(col);
+	let result = [];
+	for (let i = 0; i < n; i++) {
+		let key = keys[Math.random() * keys.length | 0]
+		result.push(col[key])
+	}
+
+	return result
+}
+
+function sample(col) {
+	let keys = Object.keys(col);
+	return col[keys[Math.random() * keys.length | 0]]
 }
 
 function includes(col, val, from = 0) {
 	from = from < 0 ? col.length + from : from;
-	if(typeof col == 'string') {
+	if (typeof col == 'string') {
 		return col.includes(val, from)
 	} else {
 		vals = Object.values(col)
-		if(vals.indexOf(val, from) > -1) {
+		if (vals.indexOf(val, from) > -1) {
 			return true
 		}
 	}
 
 	return false
-	
+
 }
 
 function zipObject(keys, vals) {
@@ -74,7 +239,7 @@ function xor(ary, ...arys) {
 	let map = new Map();
 	[].concat(ary, ...arys).forEach((e) => {
 		let k = map.get(e);
-		if(k == undefined) {
+		if (k == undefined) {
 			map.set(e, 0)
 		} else {
 			map.set(e, k + 1)
@@ -90,11 +255,11 @@ function xor(ary, ...arys) {
 }
 
 function without(ary, ...val) {
-	return difference(ary,val)
+	return difference(ary, val)
 }
 
 function unzip(ary) {
-// let result = Array.apply(null, Array(ary[0].length)).map(() => []);
+	// let result = Array.apply(null, Array(ary[0].length)).map(() => []);
 	let result = [...Array(ary[0].length)].map(() => [])
 
 	ary.forEach((e) => {
@@ -129,9 +294,9 @@ function tail(ary) {
 
 function sortedIndex(ary, val) {
 	let len = ary == null ? 0 : ary.length;
-	if(len == 0 || ary[0] > val) {
+	if (len == 0 || ary[0] > val) {
 		return 0
-	} else if(ary[len - 1] < val) {
+	} else if (ary[len - 1] < val) {
 		return len - 1
 	}
 
@@ -139,7 +304,7 @@ function sortedIndex(ary, val) {
 	let m = (len - 1) / 2 | 0;
 	let r = len - 1;
 	do {
-		if(ary[m] < val) {
+		if (ary[m] < val) {
 			l = m;
 		} else {
 			r = m;
@@ -152,14 +317,14 @@ function sortedIndex(ary, val) {
 
 function slice(ary, start = 0, end) {
 	let len = ary == null ? 0 : ary.length;
-	if(!len) {
+	if (!len) {
 		return []
 	}
 
-	if(start < 0) {
+	if (start < 0) {
 		start = -start > len ? 0 : (len + start);
 	}
-	if(end < 0) {
+	if (end < 0) {
 		end = -end > len ? 0 : (len + end)
 	} else {
 		end = end < len ? end : (len - 1)
@@ -168,7 +333,7 @@ function slice(ary, start = 0, end) {
 	len = start > end ? 0 : Math.floor((end - start + 1));
 	let result = [];
 	let i = -1;
-	while(++i < len) {
+	while (++i < len) {
 		result[i] = ary[i + start]
 	}
 
@@ -179,7 +344,7 @@ function reverse(ary) {
 	return ary.reverse()
 }
 
-function remove(ary, fn=e=>e) {
+function remove(ary, fn = e => e) {
 	if (Array.isArray(ary)) {
 		let result = ary.filter(fn);
 		pull(ary, ...result);
@@ -197,7 +362,7 @@ function pullAt(ary, idx) {
 			result.push(...ary.splice(e - offset++, 1))
 		})
 		return result
-	} else { 
+	} else {
 		return undefined
 	}
 }
