@@ -51,9 +51,66 @@ var me7426 = {
 	min,
 	multiply,
 	round,
-	substract,
+	subtract,
 	sum,
 	at,
+	defaults,
+	get,
+	set,
+	has,
+}
+
+function has(obj, path) {
+	let l = obj;
+	path = getPath(path);
+	for (const e of path) {
+		if (e in l) {
+			l = l[e]
+		} else {
+			return false
+		}
+	}
+
+	return true
+}
+
+function set(obj, path, val) {
+	let l = obj;
+	path = getPath(path);
+	for(var i = 0; i < path.length - 1;i++) {
+		const e = path[i];
+		const next_e=path[i+1]
+		if (e in l) {
+			l = l[e]
+		} else {
+			l[e] = next_e == +next_e ? [] :{};
+			l = l[e];
+		}
+	}
+	
+	l[path[i]] = val;
+	return obj;
+}
+
+function get(obj, path, def) {
+	let result = obj;
+	path = getPath(path);
+	for (const i of path) {
+		if (i in result) {
+			result = result[i]
+		} else {
+			return def
+		}
+	}
+
+	return result === undefined ? def : result
+}
+
+function defaults(obj, ...others) {
+	let objs = [].concat(obj,...others);
+	let kvs = [];
+	objs.forEach(e => kvs.unshift(...Object.entries(e)));
+	return Object.fromEntries(kvs)
 }
 
 function at(obj, ...path) {
@@ -63,24 +120,11 @@ function at(obj, ...path) {
 	return result
 }
 
-// function at(obj, ...path) {
-// 	let result = [];
-
-// 	Object.keys(obj).forEach(function (e) {
-// 		var [e] = obj[e]
-// 	},this);	
-
-// 	[].concat(...path).forEach(function (e) {
-// 		 result.push(eval(e))
-// 		}, this)
-// 	return result
-// }
-
 function sum(ary) {
 	return ary.reduce((p, e) => p + e)
 }
 
-function substract(val, other) {
+function subtract(val, other) {
 	return val - other
 }
 
@@ -491,4 +535,19 @@ function chunk(ary, size) {
 
 function isNull(val) {
 	return val === null
+}
+
+
+/**
+ * 
+ * @param {Array|String} path 
+ * @returns {Array} pathArray
+ */
+function getPath(path) {
+	if(Array.isArray(path)) {
+		return path
+	} else {
+		let reg = /\b\w+\b/g
+		return path.match(reg)
+	}
 }
