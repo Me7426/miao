@@ -58,9 +58,61 @@ var me7426 = {
 	get,
 	set,
 	has,
+	hasIn,
+	invert,
+	keys,
+	assign,
+	omit,
+	pick,
+	values,
+	camelCase,
 }
 
-function has(obj, path) {
+function camelCase(val) {
+	let reg = /[^a-z]*([a-z])([a-z]*)[^a-z]*/gi
+	let first = true;
+	return val.replace(reg, (n0, n1, n2) => {
+		if(first) {
+			first = false;
+			return n1.toLowerCase() + n2.toLowerCase()
+		}
+		return n1.toUpperCase() + n2.toLowerCase()
+	})
+}
+
+function values(obj) {
+	return Object.values(obj)
+}
+
+function pick(obj, path) {
+	let result = {};
+	path = getPath(path);
+	path.forEach(e => result[e] = obj[e]);
+	return result
+}
+
+function omit(obj, path) {
+	path = getPath(path);
+	path.forEach(e => delete obj[e])
+	return obj
+}
+
+function assign(obj, ...srs) {
+	return Object.assign(obj, ...srs)
+}
+
+function keys(obj) {
+	return Object.keys(obj)
+}
+
+function invert(obj) {
+	let ens = Object.entries(obj);
+	ens = ens.map(([key, val]) => [val, key]);
+
+	return Object.fromEntries(ens)
+}
+
+function hasIn(obj, path) {
 	let l = obj;
 	path = getPath(path);
 	for (const e of path) {
@@ -74,20 +126,34 @@ function has(obj, path) {
 	return true
 }
 
+function has(obj, path) {
+	let l = obj;
+	path = getPath(path);
+	for (const e of path) {
+		if (l.hasOwnProperty(e)) {
+			l = l[e]
+		} else {
+			return false
+		}
+	}
+
+	return true
+}
+
 function set(obj, path, val) {
 	let l = obj;
 	path = getPath(path);
-	for(var i = 0; i < path.length - 1;i++) {
+	for (var i = 0; i < path.length - 1; i++) {
 		const e = path[i];
-		const next_e=path[i+1]
+		const next_e = path[i + 1]
 		if (e in l) {
 			l = l[e]
 		} else {
-			l[e] = next_e == +next_e ? [] :{};
+			l[e] = next_e == +next_e ? [] : {};
 			l = l[e];
 		}
 	}
-	
+
 	l[path[i]] = val;
 	return obj;
 }
@@ -107,7 +173,7 @@ function get(obj, path, def) {
 }
 
 function defaults(obj, ...others) {
-	let objs = [].concat(obj,...others);
+	let objs = [].concat(obj, ...others);
 	let kvs = [];
 	objs.forEach(e => kvs.unshift(...Object.entries(e)));
 	return Object.fromEntries(kvs)
@@ -116,7 +182,7 @@ function defaults(obj, ...others) {
 function at(obj, ...path) {
 	let result = [];
 	[].concat(...path).forEach(e => result.push(eval('obj.' + e)))
-	
+
 	return result
 }
 
@@ -544,7 +610,7 @@ function isNull(val) {
  * @returns {Array} pathArray
  */
 function getPath(path) {
-	if(Array.isArray(path)) {
+	if (Array.isArray(path)) {
 		return path
 	} else {
 		let reg = /\b\w+\b/g
