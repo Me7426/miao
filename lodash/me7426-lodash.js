@@ -86,7 +86,7 @@ var me7426 = {
 	trimEnd,
 	trimStart,
 	countBy,
-	truncate,
+	// truncate,
 	parseJson:function (){window.scrollTo(0,document.body.scrollHeight);},
 }
 
