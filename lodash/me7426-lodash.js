@@ -374,11 +374,9 @@ function get(obj, path, def) {
 	return result === undefined ? def : result
 }
 
-function defaults(obj, ...others) {
-	let objs = [].concat(obj, ...others);
-	let kvs = [];
-	objs.forEach(e => kvs.unshift(...Object.entries(e)));
-	return Object.fromEntries(kvs)
+function defaults(...objs) {
+	objs.reverse();
+	return Object.assign({}, ...objs)
 }
 
 function at(obj, ...path) {
