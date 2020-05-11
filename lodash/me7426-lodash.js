@@ -8,6 +8,7 @@ var me7426 = {
 	fill,
 	head,
 	flatten,
+	flattenDeep,
 	indexOf,
 	initial,
 	intersection,
@@ -86,24 +87,56 @@ var me7426 = {
 	trimEnd,
 	trimStart,
 	countBy,
-	// truncate,
-	parseJson:function (){window.scrollTo(0,document.body.scrollHeight);},
+	unescape,
+	upperFirst,
+	upperCase,
+	words,
+	range,
+	parseJson: function () { window.scrollTo(0, document.body.scrollHeight); },
 }
 
-function truncate(str, opt) {
-	def = {
-		len: 30,
-		val: '...',
-		reg: '/./'
+function range(start = 0, end, step = 1) {
+	if(step == 0) {
+		return Array(end - start).fill(start)
 	}
-	opt = Object.assign(def, opt);
-	opt.reg = String(opt.reg);
-	opt.reg = RegExp(opt.reg.slice(1, -1) + '$');
-	str = str.slice(0, def.len);
-	// str = str.slice(0, str.search(opt.reg)) + opt.val;
-	str = str.replace(opt.reg, opt.val)
-	return str
+	let result = [];
+	if(end === undefined) {
+		end = start;
+		start = 0;
+	}
+	if(end < start) {
+		step = -Math.abs(step);
+		juge = function(n) {return n > end};
+	} else {
+		juge = function(n) {return n < end};
+	}
+	for (let i = start; juge(i); i+= step) {
+		result.push(i)
+	}
 
+	return result
+}
+
+function words(str = '', reg = /\w+/g) {
+	return str.match(reg)
+}
+
+function upperFirst(str = '') {
+	return str.replace(/\w/, e => e.toUpperCase())
+}
+
+function unescape(str = '') {
+	let map = {
+		'&amp;': '&',
+		'&lt;': '<',
+		'&gt;': '>',
+		'&quot;': '"',
+		'&#39;': "'"
+	}
+	Object.keys(map).forEach(e => {
+		str = str.replace(e, map[e])
+	})
+	return str
 }
 
 function countBy(col, fn) {
@@ -171,14 +204,14 @@ function repeat(str = '', n = 1) {
 }
 
 function padEnd(str, n, val) {
-	if(str.length < n) {
+	if (str.length < n) {
 		str = str.padEnd(n, val)
 	}
 	return str
 }
 
 function padStart(str, n, val) {
-	if(str.length < n) {
+	if (str.length < n) {
 		str = str.padStart(n, val)
 	}
 	return str
@@ -188,13 +221,19 @@ function pad(str, n, val = ' ') {
 	let len = str.length;
 	if (len < n) {
 		str = str.padStart(Math.floor((n - len) / 2) + len, val)
-		str = str.padEnd(n, val);	
+		str = str.padEnd(n, val);
 	}
 	return str
 }
 
 function lowerFirst(str) {
 	return str.replace(/\w/, e => e.toLowerCase());
+}
+
+function upperCase(str) {
+	let list = str.match(/[A-Z][a-z]+|[A-Z]+|[a-z]+/g);
+	list = list.map(e => e.toUpperCase()).join(' ');
+	return list
 }
 
 function lowerCase(str) {
@@ -222,7 +261,7 @@ function escape(str) {
 }
 
 function endsWith(str, val, n = str.length) {
-	return  str[n - 1] == val
+	return str[n - 1] == val
 }
 
 function capitalize(str) {
@@ -235,7 +274,7 @@ function camelCase(val) {
 	let reg = /[^a-z]*([a-z])([a-z]*)[^a-z]*/gi
 	let first = true;
 	return val.replace(reg, (n0, n1, n2) => {
-		if(first) {
+		if (first) {
 			first = false;
 			return n1.toLowerCase() + n2.toLowerCase()
 		}
@@ -713,6 +752,14 @@ function indexOf(ary, val, from = 0) {
 	}
 }
 
+function flattenDeep(ary) {
+	let result = [].concat(...ary);
+	do {
+		result = [].concat(...result)
+	} while (result.some(e => Array.isArray(e)));
+	return result
+}
+
 function flatten(ary) {
 	return [].concat(...ary)
 }
@@ -782,9 +829,9 @@ function getPath(path) {
 }
 
 function getFn(a) {
-	if(typeof a == 'function') {
+	if (typeof a == 'function') {
 		return a
 	} else {
-		return function (n) {return n[a]}
+		return function (n) { return n[a] }
 	}
 }
