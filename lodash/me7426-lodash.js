@@ -1,6 +1,6 @@
 var me7426 = {
 	isNull,
-	chunk:()=>xiaojaja={},
+	chunk,
 	compact,
 	difference,
 	concat,
