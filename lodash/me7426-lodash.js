@@ -1,6 +1,6 @@
 var me7426 = {
 	isNull,
-	chunk,
+	chunk:()=>xiaojaja={},
 	compact,
 	difference,
 	concat,
@@ -9,6 +9,7 @@ var me7426 = {
 	head,
 	flatten,
 	flattenDeep,
+	flattenDepth,
 	indexOf,
 	initial,
 	intersection,
@@ -92,25 +93,46 @@ var me7426 = {
 	upperCase,
 	words,
 	range,
+	differenceBy,
 	parseJson: function () { window.scrollTo(0, document.body.scrollHeight); },
 }
 
+function differenceBy(ary, ...other) {
+	if (ary) {
+		return []
+	}
+	if(Array.isArray(last(other))) {
+		fn = e => e
+	} else {
+		fn = getFn(other.pop());
+	}
+
+	
+}
+
+function flattenDepth(ary, n = 1) {
+	while (n--) {
+		ary = flatten(ary)
+	}
+	return ary
+}
+
 function range(start = 0, end, step = 1) {
-	if(step == 0) {
+	if (step == 0) {
 		return Array(end - start).fill(start)
 	}
 	let result = [];
-	if(end === undefined) {
+	if (end === undefined) {
 		end = start;
 		start = 0;
 	}
-	if(end < start) {
+	if (end < start) {
 		step = -Math.abs(step);
-		juge = function(n) {return n > end};
+		juge = function (n) { return n > end };
 	} else {
-		juge = function(n) {return n < end};
+		juge = function (n) { return n < end };
 	}
-	for (let i = start; juge(i); i+= step) {
+	for (let i = start; juge(i); i += step) {
 		result.push(i)
 	}
 
@@ -265,9 +287,7 @@ function endsWith(str, val, n = str.length) {
 }
 
 function capitalize(str) {
-	return str.replace(/(\w)(\w*)/, (n0, n1, n2) => {
-		return n1.toUpperCase() + n2.toLowerCase();
-	})
+	return upperFirst(str.toLowerCase())
 }
 
 function camelCase(val) {
@@ -363,6 +383,9 @@ function set(obj, path, val) {
 function get(obj, path, def) {
 	let result = obj;
 	path = getPath(path);
+	if(path.length == 1) {
+		return obj[path[0]]
+	}
 	for (const i of path) {
 		if (i in result) {
 			result = result[i]
@@ -830,6 +853,6 @@ function getFn(a) {
 	if (typeof a == 'function') {
 		return a
 	} else {
-		return function (n) { return n[a] }
+		return function (obj) { return get(obj, a) }
 	}
 }
