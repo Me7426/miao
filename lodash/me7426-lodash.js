@@ -94,20 +94,49 @@ var me7426 = {
 	words,
 	range,
 	differenceBy,
-	parseJson: function () { window.scrollTo(0, document.body.scrollHeight); },
+	differenceWith,
+	dropRight,
+}
+
+function dropRight(ary, n = 1) {
+	let l = ary.length;
+	n = n < l ? l - n : 0;
+	return ary.slice(0, n)
+}
+
+function differenceWith(ary, ...other) {
+	if (Object.values(ary) == []) return []
+
+	let fn = Array.isArray(last(other)) ? e => e : getFn(other.pop());
+	// 判断传入的最后一个参数是否是函数
+	let result = [];
+
+	new Set([].concat(...other))	//去重
+		.forEach(e => {
+			ary.forEach(ee => {
+				if (!fn(ee, e)) result.push(ee)
+			})
+		});
+
+	return result
 }
 
 function differenceBy(ary, ...other) {
-	if (ary) {
+	if (ary == []) {
 		return []
 	}
-	if(Array.isArray(last(other))) {
+	if (Array.isArray(last(other))) {
 		fn = e => e
 	} else {
 		fn = getFn(other.pop());
 	}
 
-	
+	let map = {};
+	let result = [];
+	[].concat(...other).forEach(e => map[fn(e)] = e);
+	ary.forEach(e => fn(e) in map || result.push(e));
+
+	return result
 }
 
 function flattenDepth(ary, n = 1) {
@@ -383,7 +412,7 @@ function set(obj, path, val) {
 function get(obj, path, def) {
 	let result = obj;
 	path = getPath(path);
-	if(path.length == 1) {
+	if (path.length == 1) {
 		return obj[path[0]]
 	}
 	for (const i of path) {
@@ -464,13 +493,7 @@ function divide(val, other) {
 }
 
 function ceil(val, n = 0) {
-	if (n > 0) {
 		return Math.ceil(val * 10 ** n) / 10 ** n;
-	} else if (n < 0) {
-		return Math.ceil(val / 10 ** (-n)) * 10 ** (-n);
-	} else {
-		return Math.ceil(val)
-	}
 }
 
 function add(val, other) {
