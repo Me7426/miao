@@ -96,6 +96,25 @@ var me7426 = {
 	differenceBy,
 	differenceWith,
 	dropRight,
+	dropRightWhile,
+	dropWhile,
+}
+
+function dropWhile(ary, fn = e=>false) {
+	fn = getIte(fn);
+	let i = 0;
+	ary.some(e => ++i && !fn(e));
+	
+	return ary.slice(i - 1)
+}
+
+function dropRightWhile(ary, fn = () => false) {
+	fn = getIte(fn);
+	let i = ary.length;
+
+	while (fn(ary[--i])){}
+
+	return ary.slice(0, i + 1)
 }
 
 function dropRight(ary, n = 1) {
@@ -493,7 +512,7 @@ function divide(val, other) {
 }
 
 function ceil(val, n = 0) {
-		return Math.ceil(val * 10 ** n) / 10 ** n;
+	return Math.ceil(val * 10 ** n) / 10 ** n;
 }
 
 function add(val, other) {
@@ -878,4 +897,21 @@ function getFn(a) {
 	} else {
 		return function (obj) { return get(obj, a) }
 	}
+}
+
+function getIte(val) {
+	let ite = val => e => keys(val).every(ee => val[ee] == e[ee]);
+	let type = Object.prototype.toString.call(val);
+
+	switch (type) {
+		case '[object Function]':
+			return val;
+		case '[object Object]':
+			return ite(val);
+		case '[object Array]':
+			return ite(Object.fromEntries([val]))
+		case '[object String]':
+			return ite({val:true})
+	}
+
 }
