@@ -98,13 +98,104 @@ var me7426 = {
 	dropRight,
 	dropRightWhile,
 	dropWhile,
+	findIndex,
+	findLastIndex,
+	fromPairs,
+	toPairs,
+	intersectionBy,
+	intersectionWith,
+	pullAllBy,
+	pullAllWith,
 }
 
-function dropWhile(ary, fn = e=>false) {
+function pullAllWith(ary1, ary2, fn = e=>e) {
+	fn = getFn(fn);
+
+	ary2.forEach(e => {
+		let i = ary1.length;
+		while (--i > -1) {
+			fn(e, ary1[i]) && ary1.splice(i, 1)
+		}
+	})
+
+	return ary1
+}
+
+function pullAllBy(ary1, ary2, fn = e=>e) {
+	fn = getFn(fn);
+
+	ary2.map(fn).forEach(e => {
+		let i = ary1.length;
+		while (--i > -1) {
+			fn(ary1[i]) == e && ary1.splice(i, 1)
+		}
+	})
+
+	return ary1
+}
+
+function intersectionWith(ary, ...others) {
+	let fn = getIte(others.pop());
+	let result = [];
+
+	[].concat(...others).forEach(e => {
+		ary.forEach(ee => fn(ee, e) && result.push(ee))
+	})
+
+	return result
+}
+
+function intersectionBy(ary, ...others) {
+	let fn = getFn(others.pop());
+	let map = {};
+	let result = [];
+
+	new Set([].concat(...others))
+		.forEach(e => map[fn(e)] = true);
+	ary.forEach(e => fn(e) in map && result.push(e));
+
+	return result
+}
+
+function toPairs(obj) {
+	return Object.entries(obj)
+}
+
+function fromPairs(ary) {
+	return Object.fromEntries(ary)
+}
+
+function findLastIndex(ary, fn = e => e, from) {
+	if (Array.isArray(ary)) {
+		from = from == undefined ? ary.length - 1 : from;
+		fn = getIte(fn);
+	} else {
+		return null
+	}
+
+	while (from >= 0) {
+		if (fn(ary[from])) return from
+		from--
+	}
+
+	return null
+}
+
+function findIndex(ary, fn = e => e, fromIdx = 0) {
+	fn = getIte(fn);
+
+	for (let i = fromIdx; i < ary.length; i++) {
+		if (fn(ary[i])) return i
+	}
+
+	return null
+}
+
+function dropWhile(ary, fn = e => false) {
 	fn = getIte(fn);
 	let i = 0;
 	ary.some(e => ++i && !fn(e));
-	
+
 	return ary.slice(i - 1)
 }
 
@@ -112,7 +203,7 @@ function dropRightWhile(ary, fn = () => false) {
 	fn = getIte(fn);
 	let i = ary.length;
 
-	while (fn(ary[--i])){}
+	while (fn(ary[--i])) { }
 
 	return ary.slice(0, i + 1)
 }
@@ -911,7 +1002,9 @@ function getIte(val) {
 		case '[object Array]':
 			return ite(Object.fromEntries([val]))
 		case '[object String]':
-			return ite({val:true})
+			let obj = {};
+			obj[val] = true;
+			return ite(obj)
 	}
 
 }
