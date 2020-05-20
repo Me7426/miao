@@ -106,9 +106,132 @@ var me7426 = {
 	intersectionWith,
 	pullAllBy,
 	pullAllWith,
+	sortedIndexBy,
+	sortedIndexOf,
+	sortedLastIndex,
+	sortedLastIndexBy,
+	sortedLastIndexOf,
+	sortedUniq,
+	sortedUniqBy,
+	takeRightWhile,
+	takeWhile,
 }
 
-function pullAllWith(ary1, ary2, fn = e=>e) {
+function takeWhile(ary, fn = e=>e) {
+	fn = getIte(fn);
+	let i = -1;
+	let len = ary.length;
+
+	while (i++ < len) {if (!fn(ary[i])) break}
+	
+	return take(ary, i)
+}
+
+function takeRightWhile(ary, fn = e=>e) {
+	fn = getIte(fn);
+	let i = ary.length;
+
+	while (i--) {
+		if(!fn(ary[i])) break
+	}
+
+	return ary.slice(i + 1)
+}
+
+function sortedUniq(ary) {
+	return sortedUniqBy(ary)
+}
+
+function sortedUniqBy(ary, fn) {
+	let i = -1;
+	let len = ary.length;
+	let result = [];
+
+	while (++i < len) {
+		var current = fn ? fn(ary[i]) : ary[i];
+
+		if (!eq(current, next)) {
+			var next = current;
+			result.push(ary[i]);
+		}
+	}
+
+	return result
+}
+
+function sortedLastIndexOf(ary, target) {
+	let start = 0;
+	let end = ary.length - 1;
+	let mid
+
+	while (start <= end) {
+		mid = parseInt(start + (end - start) / 2);
+		if (target == ary[mid] && target < ary[mid + 1]) {
+			return mid
+		} else if (target < ary[mid]) {
+			end = mid - 1
+		} else {
+			start = mid + 1
+		}
+	}
+
+	return mid
+}
+
+function sortedLastIndexBy(ary, target, fn = e=>e) {
+	fn = getIte(fn);
+	ary = ary.map(fn);
+	target = fn(target);
+
+	return sortedLastIndex(ary, target)
+}
+
+function sortedLastIndex(ary, target) {
+	let start = 0;
+	let end = ary.length - 1;
+	let mid
+
+	while (start <= end) {
+		mid = parseInt(start + (end - start) / 2);
+		if(target >= ary[mid] && target < ary[mid + 1]) {
+			return mid + 1
+		} else if (target < ary[mid]) {
+			end = mid - 1;
+		} else {
+			start = mid + 1
+		}
+	}
+
+	return mid
+}
+
+function sortedIndexOf(ary, target) {
+	let start = 0;
+	let end = ary.length - 1;
+	let mid
+
+	while (start <= end) {
+		mid = parseInt(start + (end - start) / 2);
+		if (target == ary[mid] && target > ary[mid - 1]) {
+			return mid
+		} else if (target > ary[mid]) {
+			start = mid + 1
+		} else {
+			end = mid - 1
+		}
+	}
+
+	return -1
+}
+
+function sortedIndexBy(ary, target, fn = e => e) {
+	fn = getFn(fn)
+	ary = ary.map(fn);
+	target = fn(target);
+	return sortedIndex(ary, target)
+}
+
+function pullAllWith(ary1, ary2, fn = e => e) {
 	fn = getFn(fn);
 
 	ary2.forEach(e => {
@@ -121,7 +244,7 @@ function pullAllWith(ary1, ary2, fn = e=>e) {
 	return ary1
 }
 
-function pullAllBy(ary1, ary2, fn = e=>e) {
+function pullAllBy(ary1, ary2, fn = e => e) {
 	fn = getFn(fn);
 
 	ary2.map(fn).forEach(e => {
@@ -543,7 +666,7 @@ function defaults(...objs) {
 
 function at(obj, ...path) {
 	let result = [];
-	[].concat(...path).forEach(e => result.push(eval('obj.' + e)))
+	[].concat(...path).forEach(e => result.push(get(obj, e)))
 
 	return result
 }
@@ -758,27 +881,21 @@ function tail(ary) {
 	return ary.slice(1)
 }
 
-function sortedIndex(ary, val) {
-	let len = ary == null ? 0 : ary.length;
-	if (len == 0 || ary[0] > val) {
-		return 0
-	} else if (ary[len - 1] < val) {
-		return len - 1
+function sortedIndex(ary, target) {
+	let start = 0;
+	let end = ary.length - 1;
+	let mid
+
+	while (start <= end) {
+		mid = parseInt(start + (end - start) / 2);
+		if (target <= ary[mid]) {
+			end = mid - 1
+		} else if (target > ary[mid]) {
+			start = mid + 1
+		}
 	}
 
-	let l = 0;
-	let m = (len - 1) / 2 | 0;
-	let r = len - 1;
-	do {
-		if (ary[m] < val) {
-			l = m;
-		} else {
-			r = m;
-		}
-		m = (r - l) / 2 + l | 0
-	} while (r - l > 1);
-
-	return m + 1
+	return mid
 }
 
 function slice(ary, start = 0, end) {
