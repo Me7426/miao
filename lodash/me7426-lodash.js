@@ -115,6 +115,32 @@ var me7426 = {
 	sortedUniqBy,
 	takeRightWhile,
 	takeWhile,
+	unionBy,
+	unionWith,
+}
+
+function unionWith(...ary) {
+	let fn = typeof last(ary) == 'function' ? ary.pop() : ()=>true;
+	let result = [];
+	ary = ary.flat();
+
+
+	return result
+}
+
+function unionBy(...ary) {
+	let fn = Array.isArray(last(ary)) ? e=>e : getIte(ary.pop());
+	let map = new Map();
+	let result = [];
+	union(...ary).forEach(e => {
+		let val = fn(e);
+		if(!map.has(val)) {
+			result.push(e);
+			map.set(val, e)
+		}
+	})
+
+	return result
 }
 
 function takeWhile(ary, fn = e=>e) {
@@ -373,10 +399,7 @@ function differenceBy(ary, ...other) {
 }
 
 function flattenDepth(ary, n = 1) {
-	while (n--) {
-		ary = flatten(ary)
-	}
-	return ary
+	return ary.flat(n)
 }
 
 function range(start = 0, end, step = 1) {
@@ -1024,15 +1047,45 @@ function indexOf(ary, val, from = 0) {
 }
 
 function flattenDeep(ary) {
-	let result = [].concat(...ary);
-	do {
-		result = [].concat(...result)
-	} while (result.some(e => Array.isArray(e)));
-	return result
+	// ====循环====
+	// let result = ary.flat();
+	// do {
+	// 	result = result.flat()
+	// } while (result.some(e => Array.isArray(e)));
+	// return result
+
+	//====递归1====
+	// if (Array.isArray(ary)) {
+	// 	return ary.flatMap(e => {
+	// 		if(Array.isArray(e)) {
+	// 			return flattenDeep(e)
+	// 		} else {
+	// 			return e
+	// 		}
+	// 	})
+	// } else {
+	// 	return ary
+	// }
+
+	//====递归2====
+	if (Array.isArray(ary)) {
+		let result = [];
+		for (let e of ary) {
+			if (Array.isArray(e)) {
+				result.push(...flattenDeep(e))
+			} else {
+				result.push(e)
+			}
+		}
+		return result
+	} else {
+		return ary
+	}
 }
 
 function flatten(ary) {
-	return [].concat(...ary)
+	// return [].concat(...ary)
+	return Array.isArray(ary) ? ary.flat() : ary
 }
 
 function head(ary) {
