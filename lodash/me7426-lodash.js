@@ -117,24 +117,53 @@ var me7426 = {
 	takeWhile,
 	unionBy,
 	unionWith,
+	uniqBy,
+	uniqWith: unionWith,
+	unzipWith,
+}
+
+function unzipWith(ary, fn) {
+	let result = [];
+	ary[0].forEach((e, i) => {
+		result.push(fn(e, ary[1][i]))
+	})
+
+	return result
+}
+
+function uniqBy(ary, fn = e => e) {
+	fn = getIte(fn);
+	let map = new Map();
+
+	ary.forEach(e => {
+		let val = fn(e);
+		map.has(val) || map.set(val, e)
+	});
+
+	return [...map.values()]
 }
 
 function unionWith(...ary) {
-	let fn = typeof last(ary) == 'function' ? ary.pop() : ()=>true;
-	let result = [];
+	let fn = typeof last(ary) == 'function' ? ary.pop() : () => true;
 	ary = ary.flat();
+	let result = [ary[0]];
 
+	ary.reduce((p, e) => {
+		if (result.every(ee => !fn(ee, e))) {
+			result.push(e)
+		}
+	})
 
 	return result
 }
 
 function unionBy(...ary) {
-	let fn = Array.isArray(last(ary)) ? e=>e : getIte(ary.pop());
+	let fn = Array.isArray(last(ary)) ? e => e : getIte(ary.pop());
 	let map = new Map();
 	let result = [];
 	union(...ary).forEach(e => {
 		let val = fn(e);
-		if(!map.has(val)) {
+		if (!map.has(val)) {
 			result.push(e);
 			map.set(val, e)
 		}
@@ -143,22 +172,22 @@ function unionBy(...ary) {
 	return result
 }
 
-function takeWhile(ary, fn = e=>e) {
+function takeWhile(ary, fn = e => e) {
 	fn = getIte(fn);
 	let i = -1;
 	let len = ary.length;
 
-	while (i++ < len) {if (!fn(ary[i])) break}
-	
+	while (i++ < len) { if (!fn(ary[i])) break }
+
 	return take(ary, i)
 }
 
-function takeRightWhile(ary, fn = e=>e) {
+function takeRightWhile(ary, fn = e => e) {
 	fn = getIte(fn);
 	let i = ary.length;
 
 	while (i--) {
-		if(!fn(ary[i])) break
+		if (!fn(ary[i])) break
 	}
 
 	return ary.slice(i + 1)
@@ -204,7 +233,7 @@ function sortedLastIndexOf(ary, target) {
 	return mid
 }
 
-function sortedLastIndexBy(ary, target, fn = e=>e) {
+function sortedLastIndexBy(ary, target, fn = e => e) {
 	fn = getIte(fn);
 	ary = ary.map(fn);
 	target = fn(target);
@@ -219,7 +248,7 @@ function sortedLastIndex(ary, target) {
 
 	while (start <= end) {
 		mid = parseInt(start + (end - start) / 2);
-		if(target >= ary[mid] && target < ary[mid + 1]) {
+		if (target >= ary[mid] && target < ary[mid + 1]) {
 			return mid + 1
 		} else if (target < ary[mid]) {
 			end = mid - 1;
